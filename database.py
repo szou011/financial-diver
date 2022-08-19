@@ -5,35 +5,19 @@ engine = create_engine("sqlite+pysqlite:///./database/exo.db", echo=False, futur
 
 with engine.connect() as conn:
     result = conn.execute(text("""
-        SELECT GLTRANS.ACCNO, 
-GLTRANS.SUBACCNO, 
-                GLTRANS.TRANSDATE, 
-                GLTRANS.CHQNO, 
-                GLTRANS.BATCHNO,
-                GLTRANS.INVNO, 
-                GLTRANS.DETAILS, 
-                GLTRANS.AMOUNT, 
-                GLTRANS.FCAMOUNT, 
-                CURRENCIES.CURRCODE,
-                PERIOD_STATUS.PERIODNAME, 
-                GLTRANS.SOURCE, 
-                GLTRANS.SOURCE_ACCNO, 
-                DR_ACCS.NAME
-FROM GLTRANS GLTRANS
-      LEFT OUTER JOIN DR_ACCS DR_ACCS ON 
-     (DR_ACCS.ACCNO = GLTRANS.SOURCE_ACCNO)
-      LEFT OUTER JOIN PERIOD_STATUS ON 
-     (PERIOD_STATUS.SEQNO = GLTRANS.PERIOD_SEQNO)
-      LEFT OUTER JOIN CURRENCIES ON 
-     (CURRENCIES.CURRENCYNO = GLTRANS.CURRENCYNO)
-WHERE ( GLTRANS.ACCNO = 41367 )
-AND ( GLTRANS.PERIOD_SEQNO >= 572 )
-AND ( GLTRANS.PERIOD_SEQNO <= 600 )
-       AND (( GLTRANS.SOURCE = 'd' ) OR ( GLTRANS.SOURCE = 'B' ))
+        SELECT DR_ACCS.ACCGROUP, COUNT(DR_ACCS.ACCNO) TOTAL 
+FROM DR_ACCS DR_ACCS
+GROUP BY DR_ACCS.ACCGROUP
         """))
-        
+
+                                               
+    acc_group = []
+    group_count = []
 
     for row in result:
-        print(f"ACCNO: {row.ACCNO}  NAME: {row.NAME} AMOUNT: {row.AMOUNT} ")
+        acc_group.append(row.ACCGROUP)
+        group_count.append(row.TOTAL)
 
-    
+
+print(acc_group)
+print(group_count)
