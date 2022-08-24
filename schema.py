@@ -362,6 +362,6 @@ gl_subaccount_table = Table(
     exo_metadata,
     Column("ACCNO", Integer, ForeignKey('GLACCS.ACCNO')),
     Column("SUBACCNO", Integer),
-    Column("FULLACCOUNT", String),
+    Column("FULLACCOUNT", String, primary_key=True),
     Column("NAME", String),
 )
