@@ -27,3 +27,5 @@ select = Select(title='Select Retail Group:', value='Farmers', options=get_retai
 select.on_change('value', update_retailgroup)
 # put the button and plot in a layout and add to the document
 curdoc().add_root(row(select, p))
+
+print(type(curdoc().get_model_by_name('bokeh_jinja_widget')))

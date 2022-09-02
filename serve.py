@@ -11,16 +11,7 @@ app = Flask(__name__)
 def bkapp_page():
 
     script = server_document(app_url)
-    return render_template('embed.html', script=script, template='Flas')
-
-    # pull a new session from running Bokeh server
-    #with pull_session(url=app_url) as session:
-
-        # generate a script to load the customized session
-        #script = server_session(session_id=session.id, url=app_url)
-
-        # use the script in the rendered page
-        #return render_template("embed.html", script=script, template="Flask")
+    return render_template('embed.html', script=script, framework='Flask')
 
 if __name__ == '__main__':
     app.run(port=8080)
