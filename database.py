@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 
-from orm import *
+from schema import *
 
-engine = create_engine("sqlite+pysqlite:///./database/exo.db", echo=False, future=True)
+engine = create_engine("sqlite+pysqlite:///./database/demo.db", echo=False, future=True)
+
